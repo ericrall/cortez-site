@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cortez</title>
+<script>
+// Only redirect to /here from the root path — don't catch /private etc.
+if (window.location.pathname === '/' || window.location.pathname === '') {
+  window.location.replace('/here');
+}
+</script>
 </head>
 <body>
 </body>
