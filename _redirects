@@ -1,0 +1,4 @@
+# Cloudflare Pages redirects
+# Static paths served directly (private, here have their own index.html)
+# Only redirect root to /here
+/ /here 302
