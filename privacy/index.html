@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cortez — Privacy Policy</title>
+<meta name="description" content="Privacy Policy for Cortez iOS app">
+<link rel="canonical" href="https://cortez.is/privacy">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif; background: #101014; color: rgba(255,255,255,0.85); line-height: 1.7; padding: 40px 20px; }
+  .container { max-width: 680px; margin: 0 auto; }
+  h1 { font-size: 28px; font-weight: 600; margin-bottom: 8px; color: #fff; }
+  .subtitle { color: rgba(255,255,255,0.4); font-size: 14px; margin-bottom: 40px; }
+  h2 { font-size: 18px; font-weight: 600; margin-top: 32px; margin-bottom: 12px; color: #fff; }
+  p, li { font-size: 15px; color: rgba(255,255,255,0.7); margin-bottom: 12px; }
+  ul { padding-left: 20px; margin-bottom: 16px; }
+  li { margin-bottom: 6px; }
+  a { color: #7850ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .back { display: inline-block; margin-bottom: 24px; font-size: 14px; color: rgba(255,255,255,0.4); }
+  .updated { color: rgba(255,255,255,0.3); font-size: 13px; margin-top: 48px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 20px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<a href="/here" class="back">&larr; cortez.is</a>
+
+<h1>Privacy Policy</h1>
+<p class="subtitle">Cortez iOS App &mdash; by Eric Rall</p>
+
+<h2>What Cortez Does</h2>
+<p>Cortez turns your iPhone into a wireless keyboard, mouse, and AI assistant for any computer. It uses your phone's camera to see a computer screen, then sends keyboard and mouse commands via Bluetooth.</p>
+
+<h2>Data We Collect</h2>
+<p><strong>We do not collect personal data.</strong> Specifically:</p>
+<ul>
+  <li><strong>No accounts.</strong> Cortez does not require sign-up, login, or any account creation.</li>
+  <li><strong>No analytics.</strong> We do not track usage, sessions, taps, or behavior.</li>
+  <li><strong>No advertising.</strong> There are no ads and no ad tracking.</li>
+  <li><strong>No data sold.</strong> We do not sell, share, or monetize any user data.</li>
+</ul>
+
+<h2>Camera</h2>
+<p>Cortez uses your iPhone's camera to view your computer screen. Camera frames are processed <strong>on-device</strong> for text recognition (OCR) and screen detection. When you give a command that requires AI analysis, a screenshot may be sent to our cloud service (hosted on Cloudflare Workers) for processing. Screenshots are not stored &mdash; they are processed in real-time and immediately discarded.</p>
+
+<h2>Microphone</h2>
+<p>If you use voice commands, Cortez accesses your microphone for speech recognition. Speech is processed using Apple's on-device speech recognition framework. Audio is not recorded, stored, or sent to any server.</p>
+
+<h2>Bluetooth</h2>
+<p>Cortez connects to your computer via Bluetooth Low Energy (BLE) as an HID (Human Interface Device) keyboard and mouse. This connection is direct between your iPhone and your computer &mdash; no data passes through our servers. The Bluetooth connection transmits only keyboard and mouse input reports.</p>
+
+<h2>Cloud Processing</h2>
+<p>When AI analysis is needed (complex commands that can't be handled locally), Cortez sends:</p>
+<ul>
+  <li>A screenshot of the computer screen (from the camera)</li>
+  <li>OCR text extracted from the screen</li>
+  <li>The user's command text</li>
+</ul>
+<p>This data is sent to our Cloudflare Worker, which forwards it to AI model APIs (Anthropic Claude) for processing. <strong>No data is stored</strong> on our servers or by the AI providers beyond the immediate request. Cloudflare Workers are stateless &mdash; they process and respond without retaining data.</p>
+
+<h2>On-Device Storage</h2>
+<p>Cortez stores the following locally on your iPhone:</p>
+<ul>
+  <li><strong>User preferences</strong> (display name, speed setting, platform choice)</li>
+  <li><strong>Saved devices</strong> (Bluetooth device names and platform types)</li>
+  <li><strong>Learned patterns</strong> (successful command sequences for faster replay)</li>
+  <li><strong>Action logs</strong> (what commands were run and whether they succeeded, for self-improvement)</li>
+</ul>
+<p>All local data is stored in your iPhone's app sandbox and synced via iCloud if enabled. You can delete all data by deleting the app.</p>
+
+<h2>Third-Party Services</h2>
+<ul>
+  <li><strong>Anthropic (Claude)</strong> &mdash; AI model for screen analysis and command generation. <a href="https://www.anthropic.com/privacy">Anthropic Privacy Policy</a></li>
+  <li><strong>Cloudflare Workers</strong> &mdash; Serverless compute for API routing. <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare Privacy Policy</a></li>
+  <li><strong>Apple CloudKit</strong> &mdash; Sync of on-device data (if iCloud is enabled). <a href="https://www.apple.com/legal/privacy/">Apple Privacy Policy</a></li>
+</ul>
+
+<h2>Children</h2>
+<p>Cortez is not directed at children under 13. We do not knowingly collect information from children.</p>
+
+<h2>Changes</h2>
+<p>We may update this policy. Changes will be posted at this URL. Continued use of the app after changes constitutes acceptance.</p>
+
+<h2>Contact</h2>
+<p>Questions about this policy: <a href="mailto:eric@cortez.is">eric@cortez.is</a></p>
+
+<p class="updated">Last updated: April 4, 2026</p>
+
+</div>
+</body>
+</html>
