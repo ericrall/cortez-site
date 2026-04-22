@@ -4,13 +4,45 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cortez</title>
-<script>
-// Only redirect to /here from the root path — don't catch /private etc.
-if (window.location.pathname === '/' || window.location.pathname === '') {
-  window.location.replace('/here');
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  background: #000;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-font-smoothing: antialiased;
 }
-</script>
+.container {
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 1.2s ease forwards;
+}
+h1 {
+  font-size: clamp(2rem, 8vw, 4.5rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.period { color: #3b82f6; }
+p {
+  margin-top: 1rem;
+  font-size: clamp(0.9rem, 2.5vw, 1.25rem);
+  color: rgba(255,255,255,0.5);
+  font-weight: 400;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+</style>
 </head>
 <body>
+<div class="container">
+  <h1>Cortez<span class="period">.</span></h1>
+  <p>Coming soon.</p>
+</div>
 </body>
 </html>
