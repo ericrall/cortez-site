@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Architecture — Cortez</title>
+<meta name="description" content="The 13-stage perception-to-action pipeline that drives a Mac from an iPhone camera.">
+<link rel="canonical" href="https://cortez.is/here/architecture">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://cortez.is/here/architecture">
+<meta property="og:title" content="Architecture — Cortez">
+<meta property="og:description" content="The 13-stage perception-to-action pipeline that drives a Mac from an iPhone camera.">
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: #0A0A0C; color: rgba(255,255,255,0.88); font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.65; }
+
+  .page { max-width: 880px; margin: 0 auto; padding: 56px 24px 96px; }
+
+  nav.top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 56px; font-size: 13px; }
+  nav.top .brand { font-weight: 600; letter-spacing: -0.01em; color: #fff; font-size: 15px; text-decoration: none; }
+  nav.top a { color: rgba(255,255,255,0.5); text-decoration: none; margin-left: 24px; transition: color 0.18s; }
+  nav.top a:hover { color: rgba(255,255,255,0.9); }
+
+  .eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: 0.14em; color: rgba(255,255,255,0.42); font-weight: 600; margin-bottom: 14px; }
+
+  h1 {
+    font-size: clamp(1.9rem, 5vw, 2.7rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  .lede {
+    font-size: clamp(1rem, 1.7vw, 1.1rem);
+    color: rgba(255,255,255,0.65);
+    max-width: 60ch;
+    margin-bottom: 56px;
+  }
+
+  h2 {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #fff;
+    margin-top: 64px;
+    margin-bottom: 16px;
+    letter-spacing: -0.012em;
+  }
+
+  p { margin-bottom: 18px; color: rgba(255,255,255,0.78); font-size: 15.5px; }
+  p strong { color: #fff; font-weight: 600; }
+
+  .pos {
+    background: #111116;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 28px;
+    font-size: 16px;
+    color: rgba(255,255,255,0.85);
+    margin: 32px 0;
+  }
+  .pos strong { color: #fff; }
+
+  .pipeline {
+    background: #0F0F14;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 28px 12px;
+    margin: 24px 0 36px;
+    overflow-x: auto;
+  }
+  .mermaid { background: transparent; }
+
+  .stages { margin: 24px 0 8px; }
+  .stage {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .stage:last-child { border-bottom: none; }
+  .stage .num {
+    font-variant-numeric: tabular-nums;
+    color: rgba(94,139,255,0.7);
+    font-weight: 600;
+    font-size: 13px;
+    padding-top: 2px;
+  }
+  .stage .name {
+    color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .stage .summary { color: rgba(255,255,255,0.66); font-size: 14.5px; line-height: 1.55; }
+
+  .callout {
+    background: linear-gradient(180deg, rgba(94,139,255,0.10), rgba(94,139,255,0.04));
+    border: 1px solid rgba(94,139,255,0.22);
+    border-radius: 12px;
+    padding: 28px 28px 24px;
+    margin: 48px 0;
+  }
+  .callout .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: rgba(94,139,255,0.85);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .callout h3 {
+    font-size: 1.15rem;
+    color: #fff;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .callout ul { list-style: none; padding: 0; }
+  .callout li {
+    color: rgba(255,255,255,0.78);
+    font-size: 15px;
+    padding: 8px 0 8px 22px;
+    position: relative;
+  }
+  .callout li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 16px;
+    width: 8px;
+    height: 1px;
+    background: rgba(94,139,255,0.6);
+  }
+
+  footer { margin-top: 96px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 12px; color: rgba(255,255,255,0.38); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  footer a { color: rgba(255,255,255,0.6); text-decoration: none; margin-right: 18px; }
+  footer a:hover { color: rgba(255,255,255,0.9); }
+  footer .next { color: rgba(255,255,255,0.7); }
+  footer .next a { color: #5E8BFF; margin-right: 0; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<nav class="top">
+  <a class="brand" href="/here">Cortez</a>
+  <span>
+    <a href="/here/architecture" style="color:#fff;">Architecture</a>
+    <a href="/here/phase-1">Phase I</a>
+    <a href="/here/why-cortez">Why Cortez</a>
+  </span>
+</nav>
+
+<div class="eyebrow">Architecture</div>
+<h1>A confidence-propagating pipeline from camera to keystroke.</h1>
+<p class="lede">Cortez sees a Mac through an iPhone camera and drives it over Bluetooth as if it were a wireless keyboard. Every stage of the pipeline carries forward what it knows and what it doesn't, so downstream stages decide rather than guess.</p>
+
+<div class="pos">
+  Cortez is a <strong>confidence-propagating perception-to-action pipeline</strong> with VoiceOver as the primary mediation layer for structured UI understanding. Each arrow is a contract with declared input, output, explicit confidence, and provenance. No stage reaches around another. No stage discards information the next stage might need.
+</div>
+
+<h2>The 13 stages</h2>
+
+<div class="pipeline">
+<div class="mermaid">
+flowchart LR
+  S1[1. Capture] --> S2[2. Triage]
+  S2 --> S3[3. Detect + Rectify]
+  S3 --> S4[4. OCR]
+  S4 --> S5[5. Stabilize]
+  S5 --> S6[6. Semantic Graph]
+  S5 --> S7[7. VoiceOver State]
+  S6 --> S8[8. World Model]
+  S7 --> S8
+  S8 --> S9[9. Preflight]
+  S9 --> S10[10. Plan]
+  S10 --> S11[11. Execute]
+  S11 --> S12[12. Verify]
+  S12 --> S13[13. Learn]
+
+  classDef stage fill:#1A1A22,stroke:#3A3A4A,stroke-width:1px,color:#FFFFFF;
+  class S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12,S13 stage;
+</div>
+</div>
+
+<div class="stages">
+
+<div class="stage">
+  <div class="num">01</div>
+  <div>
+    <div class="name">Capture</div>
+    <div class="summary">Take a 4K frame from the iPhone's wide-angle camera with focus, exposure, and white balance locked. Carry forward the device state — thermal level, focus distance, frame sharpness — alongside the image.</div>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="num">02</div>
+  <div>
+    <div class="name">Triage</div>
+    <div class="summary">Decide if this frame is worth processing. Is the screen on? Is the image sharp? Is the phone steady? If not, suggest a fix to the user instead of burning the next stages.</div>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="num">03</div>
+  <div>
+    <div class="name">Detect and rectify</div>
+    <div class="summary">Find the Mac screen inside the frame and warp it flat. A tracker carries the screen's corners frame-to-frame so the next stage sees a clean, stable rectangle.</div>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="num">04</div>
+  <div>
+    <div class="name">Read text</div>
+    <div class="summary">Run OCR on the rectified screen. For every text element, record the top three candidates and their confidences — never only the winner. Different regions get different reading rules: prose vs. code vs. identifiers.</div>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="num">05</div>
+  <div>
+    <div class="name">Stabilize</div>
+    <div class="summary">Single frames flicker; real fields don't. Watch fields across frames, promote them when they're consistent, demote them when they vanish, and surface the rate of change so downstream stages know how shaky the read is.</div>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="num">06</div>
+  <div>
+    <div class="name">Build a semantic graph</div>
+    <div class="summary">Pair labels to fields, identify icons, group elements into a structured map of the screen. Every pairing carries a confidence score so the planner can prefer high-confidence matches and ask questions about low-confidence ones.</div>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="num">07</div>
+  <div>
+    <div class="name">Read VoiceOver</div>
+    <div class="summary">Watch the VoiceOver caption panel and the focus ring on screen. When VoiceOver agrees with the visual scene, trust both. When they disagree, preserve both readings and let the planner decide.</div>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="num">08</div>
+  <div>
+    <div class="name">Assemble a world model</div>
+    <div class="summary">Fuse the stabilized scene, the semantic graph, and the VoiceOver state into a single picture of what's on the Mac right now — including how confident every part of that picture is.</div>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="num">09</div>
+  <div>
+    <div class="name">Preflight</div>
+    <div class="summary">Before acting, check that the world is in a state we know how to act on. If VoiceOver is missing, if a modal is up we don't recognize, if the scene is too unstable — refuse the step and tell the user why.</div>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="num">10</div>
+  <div>
+    <div class="name">Plan</div>
+    <div class="summary">Pick the next action. Try the cheapest path first: a known shortcut, a known cached navigation. Fall back to on-device planning. Fall back further to cloud planning only when on-device gives up. The output is always a structured plan, never raw coordinates.</div>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="num">11</div>
+  <div>
+    <div class="name">Execute</div>
+    <div class="summary">Send keystrokes and pointer events to the Mac over Bluetooth. The Mac sees Cortez as an ordinary wireless keyboard. Nothing is installed on the Mac. Each step has an explicit pre-condition, action, and post-condition.</div>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="num">12</div>
+  <div>
+    <div class="name">Verify</div>
+    <div class="summary">Look at the screen again. Did the field actually accept the text? Did VoiceOver confirm the right element is focused? When both agree, proceed. When they disagree, stop and escalate.</div>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="num">13</div>
+  <div>
+    <div class="name">Learn</div>
+    <div class="summary">Record what worked and what didn't, by app and by step. Next time the same task runs, the cheapest path is the one we already know works.</div>
+  </div>
+</div>
+
+</div>
+
+<div class="callout">
+  <div class="label">Why this matters</div>
+  <h3>Three properties of the pipeline</h3>
+  <ul>
+    <li>Every stage is measured before it is optimized. We instrument first, then tune.</li>
+    <li>The voter algorithm and the calibration thresholds are picked empirically against recorded evidence — not chosen by intuition.</li>
+    <li>No information is discarded between stages. If OCR knows it's uncertain, the planner finds out. If VoiceOver disagrees with the scene, both readings survive.</li>
+  </ul>
+</div>
+
+<h2>What stays, what changes</h2>
+<p>The Bluetooth HID layer, the primitive runner, the stabilizer, the security infrastructure — all of it works and isn't being rewritten. The redesign changes the seams between stages, not the stages that were already right. Roughly 15-25 percent new code, 30-40 percent modified, 40-50 percent unchanged.</p>
+
+<footer>
+  <span><a href="/private">Privacy</a><a href="mailto:eric@cortez.is">eric@cortez.is</a></span>
+  <span class="next">Next: <a href="/here/phase-1">Phase I &rarr;</a></span>
+</footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark',
+    themeVariables: {
+      darkMode: true,
+      background: '#0F0F14',
+      primaryColor: '#1A1A22',
+      primaryTextColor: '#FFFFFF',
+      primaryBorderColor: '#3A3A4A',
+      lineColor: '#5E8BFF',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif',
+      fontSize: '13px'
+    },
+    flowchart: { curve: 'basis', padding: 12, nodeSpacing: 28, rankSpacing: 32 }
+  });
+</script>
+</body>
+</html>

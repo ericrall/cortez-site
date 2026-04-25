@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Cortez — Cortez</title>
+<meta name="description" content="How Cortez differs from OS-blessed computer use, vendor agent APIs, and accessibility-tree consumers.">
+<link rel="canonical" href="https://cortez.is/here/why-cortez">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://cortez.is/here/why-cortez">
+<meta property="og:title" content="Why Cortez — Cortez">
+<meta property="og:description" content="How Cortez differs from OS-blessed computer use, vendor agent APIs, and accessibility-tree consumers.">
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: #0A0A0C; color: rgba(255,255,255,0.88); font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.65; }
+
+  .page { max-width: 820px; margin: 0 auto; padding: 56px 24px 96px; }
+
+  nav.top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 56px; font-size: 13px; }
+  nav.top .brand { font-weight: 600; letter-spacing: -0.01em; color: #fff; font-size: 15px; text-decoration: none; }
+  nav.top a { color: rgba(255,255,255,0.5); text-decoration: none; margin-left: 24px; transition: color 0.18s; }
+  nav.top a:hover { color: rgba(255,255,255,0.9); }
+
+  .eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: 0.14em; color: rgba(255,255,255,0.42); font-weight: 600; margin-bottom: 14px; }
+
+  h1 {
+    font-size: clamp(1.9rem, 5vw, 2.7rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  .lede {
+    font-size: clamp(1rem, 1.7vw, 1.1rem);
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 56px;
+    max-width: 64ch;
+  }
+
+  p { margin-bottom: 18px; color: rgba(255,255,255,0.78); font-size: 15.5px; }
+  p strong { color: #fff; font-weight: 600; }
+
+  .compare {
+    margin: 36px 0;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 32px 32px 28px;
+    background: #111116;
+  }
+  .compare .vs {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(94,139,255,0.78);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .compare h2 {
+    font-size: 1.28rem;
+    color: #fff;
+    margin-bottom: 14px;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+  }
+  .compare h2 .examples {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.45);
+    margin-left: 6px;
+  }
+  .compare p { margin-bottom: 14px; font-size: 15.5px; }
+  .compare p:last-child { margin-bottom: 0; }
+  .compare .delta {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    color: #fff;
+    font-size: 14.5px;
+    font-weight: 500;
+  }
+  .compare .delta::before {
+    content: "Cortez";
+    display: inline-block;
+    margin-right: 10px;
+    padding: 2px 9px;
+    background: rgba(94,139,255,0.16);
+    border: 1px solid rgba(94,139,255,0.32);
+    color: #5E8BFF;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    vertical-align: 1px;
+  }
+
+  .closing {
+    background: linear-gradient(180deg, rgba(94,139,255,0.10), rgba(94,139,255,0.04));
+    border: 1px solid rgba(94,139,255,0.22);
+    border-radius: 14px;
+    padding: 32px;
+    margin-top: 56px;
+    color: rgba(255,255,255,0.92);
+    font-size: 16.5px;
+    line-height: 1.6;
+  }
+  .closing strong { color: #fff; }
+
+  footer { margin-top: 96px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 12px; color: rgba(255,255,255,0.38); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  footer a { color: rgba(255,255,255,0.6); text-decoration: none; margin-right: 18px; }
+  footer a:hover { color: rgba(255,255,255,0.9); }
+</style>
+</head>
+<body>
+<div class="page">
+
+<nav class="top">
+  <a class="brand" href="/here">Cortez</a>
+  <span>
+    <a href="/here/architecture">Architecture</a>
+    <a href="/here/phase-1">Phase I</a>
+    <a href="/here/why-cortez" style="color:#fff;">Why Cortez</a>
+  </span>
+</nav>
+
+<div class="eyebrow">Why Cortez</div>
+<h1>Three categories of computer-use exist. Cortez is in none of them.</h1>
+<p class="lede">There are OS-blessed computer-use APIs, vendor-hosted agent APIs, and accessibility-tree consumers. Each works in a slice. Cortez was designed to work in the slice none of them cover.</p>
+
+<div class="compare">
+  <div class="vs">vs.</div>
+  <h2>OS-blessed computer use<span class="examples">e.g., Apple's per-app intents</span></h2>
+  <p>Apple's App Intents and similar OS-blessed surfaces let an assistant drive an app when the app's developer has explicitly exposed actions. The result is reliable but narrow: the assistant can do exactly what each app blessed, in exactly the apps that bothered to bless something.</p>
+  <p>Cross-app workflows fall through the cracks. Long-tail apps that never wired up intents stay opaque. The user's actual desktop is a mix of blessed and unblessed surfaces, and the unblessed parts are usually where work happens.</p>
+  <p class="delta">does cross-app work and doesn't depend on app-by-app blessing. The unit of control is the keyboard, which every Mac app already accepts.</p>
+</div>
+
+<div class="compare">
+  <div class="vs">vs.</div>
+  <h2>Vendor-hosted agent APIs<span class="examples">e.g., Anthropic computer-use, OpenAI CUA</span></h2>
+  <p>Frontier-model vendors offer agent loops that take screenshots, reason about them, and emit pixel coordinates to click. They are powerful and they are slow, expensive, and brittle: every step is a cloud round-trip, every step emits coordinates instead of semantic targets, and every step pays the latency of vendor inference.</p>
+  <p>For a task that is mostly a known shortcut composition, this is wildly over-engineered. For a task whose plan can be computed on-device, the cloud round-trip is pure tax.</p>
+  <p class="delta">emits a structured plan made of named primitives — not coordinates — and runs the cheapest valid path first. Cloud is the fallback when on-device cannot decide; it is not the primary path. A user composing an email shouldn't ship the email body through a cloud planner to figure out which field is the body.</p>
+</div>
+
+<div class="compare">
+  <div class="vs">vs.</div>
+  <h2>Accessibility-tree consumers<span class="examples">e.g., Voice Control, screen readers</span></h2>
+  <p>Voice Control and screen readers consume the macOS accessibility tree directly. When the tree is well-populated, they are fast and reliable. When the tree is broken — Electron apps with only AXIdentifier, Adobe products with no tree at all, Figma's canvas, anything inside a remote-desktop session — they degrade or fail.</p>
+  <p>The accessibility tree is also a single oracle. When it lies, there is no second opinion.</p>
+  <p class="delta">fuses VoiceOver state with visual perception of the screen. It uses VoiceOver as the primary oracle when it's working, falls through to scene-based navigation when it isn't, and preserves both readings when they disagree. Cortez is agnostic to whether VoiceOver is reliable on a given app — the pipeline has somewhere to go either way.</p>
+</div>
+
+<div class="closing">
+  None of this is a marketing position. It's the consequence of building Cortez on three concrete constraints: <strong>the camera is the input</strong> because no agent is installed on the Mac; <strong>the keyboard is the output</strong> because that's what every app accepts; and <strong>VoiceOver is the bridge</strong> because it provides structured semantics when the tree exists, and the camera fills in when it doesn't. Every architectural choice falls out from those three.
+</div>
+
+<footer>
+  <span><a href="/private">Privacy</a><a href="mailto:eric@cortez.is">eric@cortez.is</a></span>
+  <span class="next" style="color:rgba(255,255,255,0.7);">&larr; <a href="/here" style="color:#5E8BFF; margin-right:0;">Back to home</a></span>
+</footer>
+
+</div>
+</body>
+</html>
