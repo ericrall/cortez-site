@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cortez — Privacy Policy</title>
-<meta name="description" content="Privacy Policy for Cortez iOS app">
+<meta name="description" content="Privacy Policy for the Cortez iOS app, published by RALL DIGITAL LLC.">
 <link rel="canonical" href="https://cortez.is/private">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif; background: #101014; color: rgba(255,255,255,0.85); line-height: 1.7; padding: 40px 20px; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif; background: #101014; color: rgba(255,255,255,0.85); line-height: 1.6; padding: 48px 24px; }
   .container { max-width: 680px; margin: 0 auto; }
   h1 { font-size: 28px; font-weight: 600; margin-bottom: 8px; color: #fff; }
   .subtitle { color: rgba(255,255,255,0.4); font-size: 14px; margin-bottom: 40px; }
@@ -28,65 +28,63 @@
 <a href="/here" class="back">&larr; cortez.is</a>
 
 <h1>Privacy Policy</h1>
-<p class="subtitle">Cortez iOS App &mdash; by Eric Rall</p>
+<p class="subtitle">Cortez iOS App &mdash; published by RALL DIGITAL LLC</p>
 
 <h2>What Cortez Does</h2>
-<p>Cortez turns your iPhone into a wireless keyboard, mouse, and AI assistant for any computer. It uses your phone's camera to see a computer screen, then sends keyboard and mouse commands via Bluetooth.</p>
+<p>Cortez turns your iPhone into a Bluetooth keyboard and trackpad for a computer you can see. It uses your phone's camera to read the computer's screen on the phone itself, and sends keyboard and pointer input to the computer over Bluetooth, the same way a hardware keyboard does.</p>
 
 <h2>Data We Collect</h2>
 <p><strong>We do not collect personal data.</strong> Specifically:</p>
 <ul>
   <li><strong>No accounts.</strong> Cortez does not require sign-up, login, or any account creation.</li>
-  <li><strong>No analytics.</strong> We do not track usage, sessions, taps, or behavior.</li>
+  <li><strong>No analytics.</strong> The app contains no analytics or advertising SDK. We do not track usage, sessions, taps, or behavior.</li>
   <li><strong>No advertising.</strong> There are no ads and no ad tracking.</li>
   <li><strong>No data sold.</strong> We do not sell, share, or monetize any user data.</li>
+  <li><strong>Nothing leaves your phone.</strong> This version of Cortez sends no camera frames, screen text, commands, passwords, or contact details to any server operated by us or by anyone else.</li>
 </ul>
 
 <h2>Camera</h2>
-<p>Cortez uses your iPhone's camera to view your computer screen. Camera frames are processed <strong>on-device</strong> for text recognition (OCR) and screen detection. When you give a command that requires AI analysis, a screenshot may be sent to our cloud service (hosted on Cloudflare Workers) for processing. Screenshots are not stored &mdash; they are processed in real-time and immediately discarded.</p>
-
-<h2>Microphone</h2>
-<p>If you use voice commands, Cortez accesses your microphone for speech recognition. Speech is processed using Apple's on-device speech recognition framework. Audio is not recorded, stored, or sent to any server.</p>
+<p>Cortez uses your iPhone's camera to view the computer screen you point it at. Camera frames are processed <strong>entirely on your device</strong> for text recognition and screen detection, and are discarded after processing. They are not stored and not transmitted.</p>
 
 <h2>Bluetooth</h2>
-<p>Cortez connects to your computer via Bluetooth Low Energy (BLE) as an HID (Human Interface Device) keyboard and mouse. This connection is direct between your iPhone and your computer &mdash; no data passes through our servers. The Bluetooth connection transmits only keyboard and mouse input reports.</p>
+<p>Cortez connects to your computer over Bluetooth Low Energy as a standard HID (Human Interface Device) keyboard and pointer. The connection is direct between your iPhone and your computer; no data passes through our servers. Only keyboard and pointer input reports are transmitted.</p>
 
-<h2>Cloud Processing</h2>
-<p>When AI analysis is needed (complex commands that can't be handled locally), Cortez sends:</p>
-<ul>
-  <li>A screenshot of the computer screen (from the camera)</li>
-  <li>OCR text extracted from the screen</li>
-  <li>The user's command text</li>
-</ul>
-<p>This data is sent to our Cloudflare Worker, which forwards it to AI model APIs (Anthropic Claude) for processing. <strong>No data is stored</strong> on our servers or by the AI providers beyond the immediate request. Cloudflare Workers are stateless &mdash; they process and respond without retaining data.</p>
+<h2>Passwords and Face ID</h2>
+<p>If you save a password for Cortez to type on your computer, it is stored in the iOS Keychain on your phone and protected by Face ID or your passcode. Cortez asks for Face ID before typing a saved password and never transmits passwords anywhere except, as keystrokes, to the computer you are controlling.</p>
+
+<h2>Contacts</h2>
+<p>With your permission, Cortez reads your own contact card to fill your name, email, phone, or address into a form on your computer. It reads only what you ask it to fill, at the moment you ask, and never uploads your contacts.</p>
+
+<h2>Microphone and Speech</h2>
+<p>If a version of Cortez offers voice commands, speech is recognized on your device using Apple's speech framework. Audio is never recorded, stored, or sent to any server.</p>
+
+<h2>Motion and Local Network</h2>
+<p>Motion data is used only to keep the on-screen interface level as you tilt the phone. Local network access, if requested, is used only to discover an optional companion receiver on your own network; nothing is sent over the internet.</p>
 
 <h2>On-Device Storage</h2>
-<p>Cortez stores the following locally on your iPhone:</p>
+<p>Cortez stores the following locally on your iPhone, in the app's sandbox:</p>
 <ul>
-  <li><strong>User preferences</strong> (display name, speed setting, platform choice)</li>
+  <li><strong>Preferences</strong> (display name, handedness, platform choice)</li>
   <li><strong>Saved devices</strong> (Bluetooth device names and platform types)</li>
-  <li><strong>Learned patterns</strong> (successful command sequences for faster replay)</li>
-  <li><strong>Action logs</strong> (what commands were run and whether they succeeded, for self-improvement)</li>
+  <li><strong>Saved passwords</strong> (in the iOS Keychain, Face ID protected)</li>
+  <li><strong>Action history</strong> (which actions ran and whether they succeeded)</li>
 </ul>
-<p>All local data is stored in your iPhone's app sandbox and synced via iCloud if enabled. You can delete all data by deleting the app.</p>
+<p>This version does not sync any of this to iCloud. You can erase everything from Settings inside the app ("Erase all Cortez data") or by deleting the app.</p>
 
 <h2>Third-Party Services</h2>
-<ul>
-  <li><strong>Anthropic (Claude)</strong> &mdash; AI model for screen analysis and command generation. <a href="https://www.anthropic.com/privacy">Anthropic Privacy Policy</a></li>
-  <li><strong>Cloudflare Workers</strong> &mdash; Serverless compute for API routing. <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare Privacy Policy</a></li>
-  <li><strong>Apple CloudKit</strong> &mdash; Sync of on-device data (if iCloud is enabled). <a href="https://www.apple.com/legal/privacy/">Apple Privacy Policy</a></li>
-</ul>
+<p>This version of Cortez uses no third-party services and makes no network requests on your behalf. If a future version adds cloud-assisted features, this policy will be updated before those features are enabled, and they will be off by default.</p>
 
 <h2>Children</h2>
-<p>Cortez is not directed at children under 13. We do not knowingly collect information from children.</p>
+<p>Cortez is not directed at children. You must be 18 or older to use it. We do not knowingly collect information from anyone.</p>
 
 <h2>Changes</h2>
-<p>We may update this policy. Changes will be posted at this URL. Continued use of the app after changes constitutes acceptance.</p>
+<p>We may update this policy. Changes will be posted at this URL with a new "last updated" date.</p>
 
 <h2>Contact</h2>
-<p>Questions about this policy: <a href="mailto:eric@cortez.is">eric@cortez.is</a></p>
+<p>Questions about this policy: <a href="mailto:privacy@cortez.is">privacy@cortez.is</a><br>
+RALL DIGITAL LLC, publisher of Cortez.</p>
 
-<p class="updated">Last updated: April 4, 2026</p>
+<p class="updated">Last updated: September 10, 2026</p>
 
 </div>
 </body>
