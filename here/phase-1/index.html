@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase I — Cortez</title>
+<meta name="description" content="Phase I records raw evidence from the live pipeline so every architectural decision in Cortez gets a measured floor.">
+<link rel="canonical" href="https://cortez.is/here/phase-1">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://cortez.is/here/phase-1">
+<meta property="og:title" content="Phase I — Cortez">
+<meta property="og:description" content="Phase I records raw evidence from the live pipeline so every architectural decision in Cortez gets a measured floor.">
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: #0A0A0C; color: rgba(255,255,255,0.88); font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.65; }
+
+  .page { max-width: 760px; margin: 0 auto; padding: 56px 24px 96px; }
+
+  nav.top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 56px; font-size: 13px; }
+  nav.top .brand { font-weight: 600; letter-spacing: -0.01em; color: #fff; font-size: 15px; text-decoration: none; }
+  nav.top a { color: rgba(255,255,255,0.5); text-decoration: none; margin-left: 24px; transition: color 0.18s; }
+  nav.top a:hover { color: rgba(255,255,255,0.9); }
+
+  .eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: 0.14em; color: rgba(255,255,255,0.42); font-weight: 600; margin-bottom: 14px; }
+
+  h1 {
+    font-size: clamp(1.9rem, 5vw, 2.7rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  .lede {
+    font-size: clamp(1rem, 1.7vw, 1.1rem);
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 56px;
+    max-width: 60ch;
+  }
+
+  h2 {
+    font-size: 1.32rem;
+    font-weight: 600;
+    color: #fff;
+    margin-top: 56px;
+    margin-bottom: 14px;
+    letter-spacing: -0.012em;
+  }
+
+  p { margin-bottom: 18px; color: rgba(255,255,255,0.78); font-size: 15.5px; }
+  p strong { color: #fff; font-weight: 600; }
+  p em { color: rgba(255,255,255,0.92); font-style: italic; }
+
+  .pull {
+    border-left: 2px solid #5E8BFF;
+    padding: 4px 0 4px 20px;
+    margin: 28px 0;
+    color: rgba(255,255,255,0.92);
+    font-size: 17px;
+    line-height: 1.55;
+  }
+  .pull strong { color: #fff; }
+
+  .fork {
+    background: #111116;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 24px 26px;
+    margin: 32px 0;
+    font-size: 15px;
+    color: rgba(255,255,255,0.78);
+  }
+  .fork .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.42);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .fork strong { color: #fff; }
+
+  .stamp {
+    background: linear-gradient(180deg, rgba(94,139,255,0.10), rgba(94,139,255,0.04));
+    border: 1px solid rgba(94,139,255,0.22);
+    border-radius: 12px;
+    padding: 26px 28px;
+    margin: 48px 0 16px;
+    font-size: 16px;
+    color: rgba(255,255,255,0.92);
+  }
+  .stamp .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: rgba(94,139,255,0.85);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  footer { margin-top: 96px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 12px; color: rgba(255,255,255,0.38); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  footer a { color: rgba(255,255,255,0.6); text-decoration: none; margin-right: 18px; }
+  footer a:hover { color: rgba(255,255,255,0.9); }
+  footer .next { color: rgba(255,255,255,0.7); }
+  footer .next a { color: #5E8BFF; margin-right: 0; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<nav class="top">
+  <a class="brand" href="/here">Cortez</a>
+  <span>
+    <a href="/here/architecture">Architecture</a>
+    <a href="/here/phase-1" style="color:#fff;">Phase I</a>
+    <a href="/here/why-cortez">Why Cortez</a>
+  </span>
+</nav>
+
+<div class="eyebrow">Phase I</div>
+<h1>We record raw evidence so the architecture has a floor.</h1>
+<p class="lede">Phase I extends the live pipeline with stage-by-stage instrumentation and runs it across a representative matrix of lighting, distance, motion, and apps. The output is a fixture corpus that future phases replay.</p>
+
+<h2>Why this exists</h2>
+<p>A pipeline this deep makes assumptions at every seam. OCR makes an assumption about how confident its candidates are; the stabilizer makes an assumption about how many frames to wait; the planner makes an assumption about how trustworthy a label-field pairing is. Most of those assumptions are reasonable. Some are wrong. The cost of being wrong is rebuilding the wrong thing later.</p>
+<p>Phase I exists to replace assumption with measurement. We don't run end-to-end pass/fail tests in this phase — we record what each stage actually receives from the stage before it, and we keep the recording so we can replay the pipeline against alternative algorithms later, offline, without touching real hardware.</p>
+
+<div class="pull">
+  We record raw evidence sufficient for offline replay against alternative voters; the choice of voter is then <strong>empirical</strong>, not chosen.
+</div>
+
+<h2>The fork: voters as an example</h2>
+<p>Inside the stabilizer is a voter — the algorithm that decides when a flickering OCR field has settled into a real value. Two reasonable voter algorithms exist in the research, and neither one is obviously better in the abstract.</p>
+
+<div class="fork">
+  <div class="label">Option A</div>
+  <strong>Dirichlet-style candidate dictionary</strong> with bucketed weights — assign each candidate a weight by confidence bucket and tally over a window.
+</div>
+
+<div class="fork">
+  <div class="label">Option B</div>
+  <strong>Capped log-odds accumulation</strong> with a per-frame cap on histogram-calibrated confidences.
+</div>
+
+<p>We don't pick by argument. Phase I records both candidate dictionaries and raw confidences for every frame in the corpus. Phase II runs both voters offline against that corpus and picks the one with better convergence at a fixed false-lock rate. That decision then carries a measured rationale, not an aesthetic preference.</p>
+<p>This same pattern repeats throughout the pipeline. Where two reasonable choices exist, we record enough evidence in Phase I to settle the choice empirically later.</p>
+
+<h2>What gets characterized</h2>
+<p>For each stage boundary in the live cascade, we extract a statistical portrait: the distribution of per-element confidence, the temporal stability frame to frame, the alternatives that were considered and discarded, the failure modes specific to that boundary, and the latency and thermal cost the stage contributes to the whole.</p>
+<p>The recording covers a representative spread of conditions: three lighting environments, three grip stabilities, three distances, three Mac states, across three apps that exercise different UI patterns. About thirty to forty-five sessions of thirty to sixty seconds each. Total fixture corpus: several hours of replayable cascade data.</p>
+
+<h2>The 26 contradictions</h2>
+<p>Phase 0 was the synthesis phase that produced this architecture. In the course of writing it we surfaced 26 architectural contradictions across the research — places where two reasonable papers disagreed, or where the obvious choice in isolation was the wrong choice in composition. The Phase I corpus is the instrument that resolves each one empirically. We're not arguing them; we're measuring them.</p>
+
+<h2>What replay buys us</h2>
+<p>Once the corpus exists, every later change to the architecture validates against the same fixtures. A new stabilizer that emits different output gets compared frame-for-frame against the old stabilizer's output on the same input. A new semantic-graph reranker gets scored against the same labeled pairings. The corpus is the regression baseline.</p>
+<p>This is the property that makes the redesign tractable. It means iterating on a stage doesn't require iterating on the whole stack. It means the slow loop (real iPhone, real Mac, real VoiceOver) gets reserved for end-to-end validation, not for tuning.</p>
+
+<div class="stamp">
+  <div class="label">By Phase II launch</div>
+  Every architectural decision in the Cortez pipeline has a measured floor.
+</div>
+
+<footer>
+  <span><a href="/private">Privacy</a><a href="mailto:eric@cortez.is">eric@cortez.is</a></span>
+  <span class="next">Next: <a href="/here/why-cortez">Why Cortez &rarr;</a></span>
+</footer>
+
+</div>
+</body>
+</html>
