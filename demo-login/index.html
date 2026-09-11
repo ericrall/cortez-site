@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Cortez Duo demo sign-in</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; background: #fff; color: #222; padding: 48px 40px; max-width: 420px; margin: 0 auto; }
+  h1 { font-size: 24px; margin: 0 0 28px; font-weight: 600; }
+  p.note { font-size: 13px; color: #666; margin: 0 0 24px; }
+  .field { margin-top: 20px; }
+  label { display: block; font-size: 13px; font-weight: 600; color: #444; margin-bottom: 5px; }
+  input { display: block; width: 100%; padding: 9px 12px; font-size: 15px; border: 1px solid #ccc; border-radius: 6px; outline: none; }
+  input:focus { border-color: #0071e3; box-shadow: 0 0 0 3px rgba(0,113,227,0.2); }
+  button { margin-top: 24px; padding: 10px 24px; background: #0071e3; color: white; border: none; border-radius: 6px; font-size: 15px; font-weight: 600; cursor: pointer; }
+  #done { display: none; }
+  #done h1 { color: #1a7f37; }
+  a { color: #0071e3; }
+</style>
+</head>
+<body>
+  <!-- Demo sign-in page for Cortez Duo. Same field structure as the fill flow's validated fixture
+       (cortez-scale-test/html/test-login.html): a visible username field, a visible password field and a
+       Sign In control. Nothing typed here is sent anywhere: the form never submits to a server. -->
+  <div id="form-wrap">
+    <h1>Sign In</h1>
+    <p class="note">Demo page for Cortez Duo. Any username and password are accepted. Nothing you type leaves this page.</p>
+    <form id="login-form">
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" autocomplete="off">
+      </div>
+      <button type="submit">Sign In</button>
+    </form>
+  </div>
+  <div id="done">
+    <h1>Signed in as <span id="who"></span></h1>
+    <p class="note">This is a demo. No account exists and nothing was sent. <a href="#" id="reset">Sign out</a></p>
+  </div>
+  <script>
+    (function () {
+      var form = document.getElementById('login-form');
+      var wrap = document.getElementById('form-wrap');
+      var done = document.getElementById('done');
+      var who = document.getElementById('who');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var u = document.getElementById('username').value || 'guest';
+        who.textContent = u;
+        wrap.style.display = 'none';
+        done.style.display = 'block';
+        document.title = 'Signed in as ' + u;
+      });
+      document.getElementById('reset').addEventListener('click', function (e) {
+        e.preventDefault();
+        form.reset();
+        done.style.display = 'none';
+        wrap.style.display = 'block';
+        document.title = 'Cortez Duo demo sign-in';
+      });
+    })();
+  </script>
+</body>
+</html>
