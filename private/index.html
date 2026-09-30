@@ -31,7 +31,7 @@
 <p class="subtitle">Cortez iOS App &mdash; published by RALL DIGITAL LLC</p>
 
 <h2>What Cortez Does</h2>
-<p>Cortez turns your iPhone into a Bluetooth keyboard and trackpad for a computer you can see. It uses your phone's camera to read the computer's screen on the phone itself, and sends keyboard and pointer input to the computer over Bluetooth, the same way a hardware keyboard does.</p>
+<p>Cortez turns your iPhone or iPad into a Bluetooth keyboard and trackpad for a computer you can see. It uses your device's camera to read the computer's screen on the device itself, and sends keyboard and pointer input to the computer over Bluetooth, the same way a hardware keyboard does.</p>
 
 <h2>Data We Collect</h2>
 <p><strong>We do not collect personal data.</strong> Specifically:</p>
@@ -40,39 +40,39 @@
   <li><strong>No analytics.</strong> The app contains no analytics or advertising SDK. We do not track usage, sessions, taps, or behavior.</li>
   <li><strong>No advertising.</strong> There are no ads and no ad tracking.</li>
   <li><strong>No data sold.</strong> We do not sell, share, or monetize any user data.</li>
-  <li><strong>Nothing leaves your phone.</strong> This version of Cortez sends no camera frames, screen text, commands, passwords, or contact details to any server operated by us or by anyone else.</li>
+  <li><strong>Nothing leaves your device.</strong> This version of Cortez sends no camera frames, screen text, commands, passwords, or contact details to any server operated by us or by anyone else.</li>
 </ul>
 
 <h2>Camera</h2>
-<p>Cortez uses your iPhone's camera to view the computer screen you point it at. Camera frames are processed <strong>entirely on your device</strong> for text recognition and screen detection, and are discarded after processing. They are not stored and not transmitted.</p>
+<p>Cortez uses your device's camera to view the computer screen you point it at. Camera frames are processed <strong>entirely on your device</strong> for text recognition and screen detection, and are discarded after processing. They are not stored and not transmitted.</p>
 
 <h2>Bluetooth</h2>
-<p>Cortez connects to your computer over Bluetooth Low Energy as a standard HID (Human Interface Device) keyboard and pointer. The connection is direct between your iPhone and your computer; no data passes through our servers. Only keyboard and pointer input reports are transmitted.</p>
+<p>Cortez connects to your computer over Bluetooth Low Energy as a standard HID (Human Interface Device) keyboard and pointer. The connection is direct between your iPhone or iPad and your computer; no data passes through our servers. Only keyboard and pointer input reports are transmitted.</p>
 
-<h2>Passwords and Face ID</h2>
-<p>If you save a password for Cortez to type on your computer, it is stored in the iOS Keychain on your phone and protected by Face ID or your passcode. Cortez asks for Face ID before typing a saved password and never transmits passwords anywhere except, as keystrokes, to the computer you are controlling.</p>
+<h2>Passwords, Face ID and Touch ID</h2>
+<p>Cortez does not store passwords. When you use Fill password, you choose the password yourself from iOS AutoFill, which is part of iOS and asks for Face ID, Touch ID or your passcode according to your device settings. Cortez receives only the username and password you choose, types them as keystrokes into the computer you are controlling, and never saves them or transmits them anywhere else. Separately, you can lock Cortez itself behind Face ID, Touch ID or your passcode.</p>
 
 <h2>Face Data</h2>
-<p>Cortez does not collect, access, store, or share face data. When you unlock Cortez or approve typing a saved password, iOS performs Face ID itself; Cortez receives only a yes/no result from Apple's LocalAuthentication framework and never sees, stores, or transmits your face geometry, images, or any biometric template. Cortez does not use face detection, face tracking, or the TrueDepth camera. Camera frames of your computer screen are processed on-device and discarded immediately.</p>
+<p>Cortez does not collect, access, store, or share face data. When you unlock Cortez, iOS performs Face ID or Touch ID itself; Cortez receives only a yes/no result from Apple's LocalAuthentication framework and never sees, stores, or transmits your face geometry, images, or any biometric template. When iOS AutoFill asks for Face ID or Touch ID before giving you a password, that check happens entirely inside iOS. Cortez does not use face detection, face tracking, or the TrueDepth camera. Camera frames of your computer screen are processed on-device and discarded immediately.</p>
 
 <h2>Contacts</h2>
-<p>With your permission, Cortez reads your own contact card to fill your name, email, phone, or address into a form on your computer. It reads only what you ask it to fill, at the moment you ask, and never uploads your contacts.</p>
+<p>This version of Cortez does not read your contacts.</p>
 
 <h2>Microphone and Speech</h2>
-<p>If a version of Cortez offers voice commands, speech is recognized on your device using Apple's speech framework. Audio is never recorded, stored, or sent to any server.</p>
+<p>This version of Cortez does not use the microphone or speech recognition.</p>
 
 <h2>Motion and Local Network</h2>
-<p>Motion data is used only to keep the on-screen interface level as you tilt the phone. Local network access, if requested, is used only to discover an optional companion receiver on your own network; nothing is sent over the internet.</p>
+<p>Cortez reads the device's motion sensor on the device only to tell when the device is being held still, so it can read the screen more accurately; motion data is not stored or transmitted. This version of Cortez does not access your local network.</p>
 
 <h2>On-Device Storage</h2>
 <p>Cortez stores the following locally on your iPhone, in the app's sandbox:</p>
 <ul>
   <li><strong>Preferences</strong> (display name, handedness, platform choice)</li>
   <li><strong>Saved devices</strong> (Bluetooth device names and platform types)</li>
-  <li><strong>Saved passwords</strong> (in the iOS Keychain, Face ID protected)</li>
   <li><strong>Action history</strong> (which actions ran and whether they succeeded)</li>
 </ul>
-<p>This version does not sync any of this to iCloud. You can erase everything from Settings inside the app ("Erase all Cortez data"). Deleting the app removes everything except saved passwords, which iOS keeps in the Keychain; use "Erase all Cortez data" first if you want those gone too.</p>
+<p>Cortez stores no passwords.</p>
+<p>This version does not sync any of this to iCloud. You can erase everything from Settings inside the app ("Erase all Cortez data"). "Erase all Cortez data" also clears anything Cortez has placed in the iOS Keychain (iOS can keep Keychain items after an app is deleted). Deleting the app removes the rest.</p>
 
 <h2>Third-Party Services</h2>
 <p>This version of Cortez uses no third-party services and makes no network requests on your behalf. If a future version adds cloud-assisted features, this policy will be updated before those features are enabled, and they will be off by default.</p>
@@ -87,7 +87,7 @@
 <p>Questions about this policy: <a href="mailto:privacy@cortez.is">privacy@cortez.is</a><br>
 RALL DIGITAL LLC, publisher of Cortez.</p>
 
-<p class="updated">Last updated: September 29, 2026</p>
+<p class="updated">Last updated: September 30, 2026</p>
 
 </div>
 </body>
