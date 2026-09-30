@@ -50,7 +50,7 @@
   <li><strong>No analytics.</strong> The app contains no analytics or advertising SDK. We do not track usage, sessions, taps, or behavior.</li>
   <li><strong>No advertising.</strong> There are no ads and no ad tracking.</li>
   <li><strong>No data sold.</strong> We do not sell, share, or monetize any user data.</li>
-  <li><strong>Nothing leaves your device unless you turn on AI help with sign-ins.</strong> Cortez never sends camera frames, screenshots, saved passwords, or contact details to any server. Screen text is sent only by AI help with sign-ins, which is off by default and described <a href="#ai-help">below</a>.</li>
+  <li><strong>Nothing leaves your device unless you turn on AI help with sign-ins.</strong> Cortez never sends camera frames, screenshots, saved passwords, or your saved contact card to any server. Screen text is sent only by AI help with sign-ins, which is off by default and described <a href="#ai-help">below</a>.</li>
 </ul>
 
 <h2>Camera</h2>
@@ -99,8 +99,9 @@
   <li><strong>(b) A turned-off record</strong>: when you turn the feature off, the dates you turned it on and off and which wording you had agreed to, kept for one year.</li>
   <li><strong>(c) A device identifier used to verify this app</strong> (the identifiers your phone registers when it first connects, including an Apple App Attest key, so our server can check that requests come from a genuine copy of Cortez). It is kept until you ask us to delete it.</li>
   <li><strong>(d) A daily usage count</strong> for this phone, a number used to limit cost and abuse, deleted after 3 days.</li>
+  <li><strong>(e) Short-lived anti-replay values</strong>, random one-time codes that stop a captured request from being sent again, kept at most 5 minutes.</li>
 </ul>
-<p>The consent, turned-off and usage records are stored under a hashed form of your phone's app token. These records hold no name, email address, account, or screen content, and are not used for advertising or tracking. [PENDING OPEN-12: "They hold no IP address" is added here only after the legacy consent records are exported and purged.] To have them deleted, email <a href="mailto:privacy@cortez.is">privacy@cortez.is</a>.</p>
+<p>The consent, turned-off and usage records are stored under a hashed form of your phone's app token. These records hold no name, email address, account, or screen content, and are not used for advertising or tracking. [PENDING OPEN-12: "They hold no IP address" is added here only after the legacy consent records are exported and purged.] Turning off AI Help with Sign-ins deletes your consent record. [PENDING FLIP: Support ID] To delete your device identifier, email <a href="mailto:privacy@cortez.is">privacy@cortez.is</a> and quote the Support ID shown in Settings &gt; Privacy &amp; Data.</p>
 <p><strong>Turning it off.</strong> You can turn this off at any time in Settings &gt; Privacy &amp; Data &gt; "AI Help with Sign-ins". When you turn it off, your phone forgets its agreement first, then tells our server, and Cortez stops sending screen text. If we change the wording of what we ask you to agree to, the old agreement stops working and Cortez asks you again.</p>
 
 <h2>Third-Party Services</h2>
