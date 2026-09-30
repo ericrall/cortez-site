@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<!--
+  DO NOT DEPLOY BEFORE THE FLIP BUILD IS LIVE ON THE APP STORE.
+  App Review was told the current version makes no network requests. This draft (OPEN-3, branch
+  open3-cloud-policy) describes the FLIP build, which offers "AI help with sign-ins". Publishing it earlier
+  would contradict what App Review and today's users were told.
+  Before deploy, also resolve every [PENDING ...] marker below (OPEN-1/2: Eric's OpenRouter logging and
+  training check; OPEN-12: export + purge of the legacy /consent records) and set the "Last updated" date.
+  Sources: cortez docs/operations/PREREG-COP7-consent-v2-legacy-retire.md, cortez-worker/fixtures/
+  consent-agent-step.2.txt, ~/Developer/cortez-counsel/COUNSEL-QA.md.
+-->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -34,13 +44,13 @@
 <p>Cortez turns your iPhone or iPad into a Bluetooth keyboard and trackpad for a computer you can see. It uses your device's camera to read the computer's screen on the device itself, and sends keyboard and pointer input to the computer over Bluetooth, the same way a hardware keyboard does.</p>
 
 <h2>Data We Collect</h2>
-<p><strong>We do not collect personal data.</strong> Specifically:</p>
+<p><strong>We do not collect personal data.</strong> The only exception is the limited records described under <a href="#ai-help">AI Help with Sign-ins</a>, and only if you turn that feature on. Specifically:</p>
 <ul>
   <li><strong>No accounts.</strong> Cortez does not require sign-up, login, or any account creation.</li>
   <li><strong>No analytics.</strong> The app contains no analytics or advertising SDK. We do not track usage, sessions, taps, or behavior.</li>
   <li><strong>No advertising.</strong> There are no ads and no ad tracking.</li>
   <li><strong>No data sold.</strong> We do not sell, share, or monetize any user data.</li>
-  <li><strong>Nothing leaves your device.</strong> This version of Cortez sends no camera frames, screen text, commands, passwords, or contact details to any server operated by us or by anyone else.</li>
+  <li><strong>Nothing leaves your device unless you turn on AI help with sign-ins.</strong> Cortez never sends camera frames, screenshots, saved passwords, or contact details to any server. Screen text is sent only by AI help with sign-ins, which is off by default and described <a href="#ai-help">below</a>.</li>
 </ul>
 
 <h2>Camera</h2>
@@ -74,8 +84,33 @@
 <p>Cortez stores no passwords.</p>
 <p>This version does not sync any of this to iCloud. You can erase everything from Settings inside the app ("Erase all Cortez data"). "Erase all Cortez data" also clears anything Cortez has placed in the iOS Keychain (iOS can keep Keychain items after an app is deleted). Deleting the app removes the rest.</p>
 
+<h2 id="ai-help">AI Help with Sign-ins (optional, off by default)</h2>
+<p>When Cortez's built-in steps can't finish a sign-in on your computer, it can ask an AI model for the next step. This feature is <strong>off by default</strong>. Nothing is sent until you tap <strong>Allow</strong> on the "AI help with sign-ins" sheet, which Cortez shows before it would first send anything. If you tap <strong>Not Now</strong>, nothing is sent.</p>
+<p><strong>What is sent.</strong> A text description of the computer screen your camera sees: everything readable on it (which can include names, email addresses, or messages from other apps and notifications that are visible), the names of fields and buttons, and where they are on the screen. It also includes the goal ("Sign in to" the site) and a short list of the steps already tried. Close windows you don't want read before you start.</p>
+<ul>
+  <li><strong>No images.</strong> No photo, camera frame, or screenshot is ever sent. The text is read from the camera image on your phone, and the image stays on your phone.</li>
+  <li><strong>Your saved password is never sent.</strong> Cortez replaces your saved username and password with placeholders before the text leaves your phone, and types them on your computer itself, over Bluetooth. The AI model can only ask Cortez to "type the password"; it never receives it.</li>
+  <li><strong>Known limits of that replacement.</strong> If the camera reads only a piece of a password shorter than six characters, that piece is not recognized and can be sent. The width of a password field on screen can hint at how long a password is. A username shown in a different form (for example, a display name) is not recognized as your username.</li>
+</ul>
+<p><strong>Where it goes.</strong> The text goes from your phone over an encrypted connection to Cortez's server (which runs on Cloudflare), then to OpenRouter, which passes it only to a provider that keeps no copy of it. Today that provider is Google. Cortez's server refuses any answer served by a provider that is not on that list. If we add a different provider, we will update this policy and ask for your agreement again before anything is sent to it.</p>
+<p><strong>What is kept.</strong> Cortez's server does not store or log the screen text, the goal, or the steps; it logs only a short status code and how long the request took. Cortez and the provider do not store the text or use it for training. [PENDING OPEN-1/2: "OpenRouter does not store it or use it for training" is added here only after Eric's OpenRouter account check of request logging and training settings is recorded; if that check fails, this sentence and the consent text must change.] Cortez's server keeps only:</p>
+<ul>
+  <li><strong>(a) A consent record</strong>: that this phone agreed to the current wording, which wording, and when. It is kept while the feature is on, for at most one year, and is deleted when you turn the feature off.</li>
+  <li><strong>(b) A turned-off record</strong>: when you turn the feature off, the dates you turned it on and off and which wording you had agreed to, kept for one year.</li>
+  <li><strong>(c) A device identifier used to verify this app</strong> (the identifiers your phone registers when it first connects, including an Apple App Attest key, so our server can check that requests come from a genuine copy of Cortez). It is kept until you ask us to delete it.</li>
+  <li><strong>(d) A daily usage count</strong> for this phone, a number used to limit cost and abuse, deleted after 3 days.</li>
+</ul>
+<p>The consent, turned-off and usage records are stored under a hashed form of your phone's app token. None of these records holds no name, email address, account, or screen content, and are not used for advertising or tracking. [PENDING OPEN-12: "They hold no IP address" is added here only after the legacy consent records are exported and purged.] To have them deleted, email <a href="mailto:privacy@cortez.is">privacy@cortez.is</a>.</p>
+<p><strong>Turning it off.</strong> You can turn this off at any time in Settings &gt; Privacy &amp; Data &gt; "AI Help with Sign-ins". When you turn it off, your phone forgets its agreement first, then tells our server, and Cortez stops sending screen text. If we change the wording of what we ask you to agree to, the old agreement stops working and Cortez asks you again.</p>
+
 <h2>Third-Party Services</h2>
-<p>This version of Cortez uses no third-party services and makes no network requests on your behalf. If a future version adds cloud-assisted features, this policy will be updated before those features are enabled, and they will be off by default.</p>
+<p>Cortez uses no third-party services and makes no network requests on your behalf unless you turn on AI help with sign-ins. When that feature is on, it uses:</p>
+<ul>
+  <li><strong>Cloudflare</strong>, which hosts Cortez's server;</li>
+  <li><strong>OpenRouter</strong>, which routes the request to the AI provider;</li>
+  <li><strong>Google</strong> (Gemini, served by Google Cloud), the AI provider that reads the screen text and suggests the next step.</li>
+</ul>
+<p>No other third party receives data from Cortez. Any new cloud-assisted feature will be added to this policy before it is enabled, and will be off by default.</p>
 
 <h2>Children</h2>
 <p>Cortez is not directed at children. You must be 18 or older to use it. We do not knowingly collect information from anyone.</p>
@@ -87,7 +122,7 @@
 <p>Questions about this policy: <a href="mailto:privacy@cortez.is">privacy@cortez.is</a><br>
 RALL DIGITAL LLC, publisher of Cortez.</p>
 
-<p class="updated">Last updated: September 30, 2026</p>
+<p class="updated">Last updated: [SET ON THE DAY THE FLIP BUILD GOES LIVE]</p>
 
 </div>
 </body>
