@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Cortez test page</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; background: #fff; color: #222; padding: 48px 40px; max-width: 460px; margin: 0 auto; }
+  h1 { font-size: 24px; margin: 0 0 16px; font-weight: 600; }
+  p.note { font-size: 13px; color: #666; margin: 0 0 20px; }
+  .field { margin-top: 20px; }
+  label { display: block; font-size: 13px; font-weight: 600; color: #444; margin-bottom: 5px; }
+  input { display: block; width: 100%; padding: 9px 12px; font-size: 15px; border: 1px solid #ccc; border-radius: 6px; outline: none; }
+  input:focus { border-color: #0071e3; box-shadow: 0 0 0 3px rgba(0,113,227,0.2); }
+  .btn { display: inline-block; margin-top: 24px; padding: 10px 24px; background: #0071e3; color: #fff; border-radius: 6px; font-size: 15px; font-weight: 600; cursor: pointer; user-select: none; }
+  #step2, #done { display: none; }
+  #done h1 { color: #1a7f37; }
+</style>
+</head>
+<body>
+  <!-- Cortez test page. Deliberately stuck for the fixed sign-in steps: this page has NO <form>, so pressing
+       Return in the username field does nothing; the password field only exists after the Continue button is
+       CLICKED. Fake fields: no form action, no network, no storage, no links. -->
+  <p class="note">Cortez test page, accepts no data. Nothing typed here is sent or stored.</p>
+  <div id="step1">
+    <h1>Sign in</h1>
+    <p class="note">Step 1 of 2. Type any name, then click the blue Continue button. The Return key does not work on this page.</p>
+    <div class="field">
+      <label for="username">Username</label>
+      <input type="text" id="username" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="btn" id="go1" role="button" tabindex="0">Continue</div>
+  </div>
+  <div id="step2">
+    <h1>Sign in</h1>
+    <p class="note">Step 2 of 2. Type any password, then click Sign in.</p>
+    <div class="field">
+      <label for="password">Password</label>
+      <input type="password" id="password" autocomplete="off">
+    </div>
+    <div class="btn" id="go2" role="button" tabindex="0">Sign in</div>
+  </div>
+  <div id="done">
+    <h1>Signed in (test)</h1>
+    <p class="note">This is a test page. No account exists and nothing was sent.</p>
+  </div>
+  <script>
+    (function () {
+      function show(id) { ['step1', 'step2', 'done'].forEach(function (s) { document.getElementById(s).style.display = s === id ? 'block' : 'none'; }); }
+      document.getElementById('go1').addEventListener('click', function () { show('step2'); document.getElementById('password').focus(); });
+      document.getElementById('go2').addEventListener('click', function () { show('done'); });
+    })();
+  </script>
+</body>
+</html>
