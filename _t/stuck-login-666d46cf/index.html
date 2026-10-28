@@ -14,7 +14,8 @@
   label { display: block; font-size: 13px; font-weight: 600; color: #444; margin-bottom: 5px; }
   input { display: block; width: 100%; padding: 9px 12px; font-size: 15px; border: 1px solid #ccc; border-radius: 6px; outline: none; }
   input:focus { border-color: #0071e3; box-shadow: 0 0 0 3px rgba(0,113,227,0.2); }
-  .btn { display: inline-block; margin-top: 24px; padding: 10px 24px; background: #0071e3; color: #fff; border-radius: 6px; font-size: 15px; font-weight: 600; cursor: pointer; user-select: none; }
+  button { display: inline-block; margin-top: 24px; padding: 10px 24px; background: #0071e3; color: #fff; border: none; border-radius: 6px; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer; }
+  button:focus-visible { outline: 3px solid rgba(0,113,227,0.4); outline-offset: 2px; }
   #step2, #done { display: none; }
   #done h1 { color: #1a7f37; }
 </style>
@@ -22,35 +23,35 @@
 <body>
   <!-- Cortez test page. Deliberately stuck for the fixed sign-in steps: this page has NO <form>, so pressing
        Return in the username field does nothing; the password field only exists after the Continue button is
-       CLICKED. Fake fields: no form action, no network, no storage, no links. -->
+       activated (click, or Tab then Return/Space on the real <button>). Fake fields: no form action, no network, no storage, no links. -->
   <p class="note">Cortez test page, accepts no data. Nothing typed here is sent or stored.</p>
   <div id="step1">
     <h1>Sign in</h1>
-    <p class="note">Step 1 of 2. Type any name, then click the blue Continue button. The Return key does not work on this page.</p>
+    <p class="note">Step 1 of 2. Type any name, then click the blue Continue button (or press Tab, then Return or Space on it). Return in the field does not continue.</p>
     <div class="field">
       <label for="username">Username</label>
       <input type="text" id="username" autocomplete="off" spellcheck="false">
     </div>
-    <div class="btn" id="go1" role="button" tabindex="0">Continue</div>
+    <button type="button" id="go1">Continue</button>
   </div>
   <div id="step2">
     <h1>Sign in</h1>
-    <p class="note">Step 2 of 2. Type any password, then click Sign in.</p>
+    <p class="note">Step 2 of 2. Type any password, then click Sign in (or press Tab, then Return or Space on it).</p>
     <div class="field">
       <label for="password">Password</label>
       <input type="password" id="password" autocomplete="off">
     </div>
-    <div class="btn" id="go2" role="button" tabindex="0">Sign in</div>
+    <button type="button" id="go2">Sign in</button>
   </div>
   <div id="done">
-    <h1>Signed in (test)</h1>
+    <h1>Signed in (<span id="who"></span>)</h1>
     <p class="note">This is a test page. No account exists and nothing was sent.</p>
   </div>
   <script>
     (function () {
       function show(id) { ['step1', 'step2', 'done'].forEach(function (s) { document.getElementById(s).style.display = s === id ? 'block' : 'none'; }); }
       document.getElementById('go1').addEventListener('click', function () { show('step2'); document.getElementById('password').focus(); });
-      document.getElementById('go2').addEventListener('click', function () { show('done'); });
+      document.getElementById('go2').addEventListener('click', function () { document.getElementById('who').textContent = document.getElementById('username').value || 'test'; show('done'); });
     })();
   </script>
 </body>
