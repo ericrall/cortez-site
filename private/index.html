@@ -29,41 +29,41 @@
 
 <h1>Privacy Policy</h1>
 <p class="subtitle">Cortez iOS App &mdash; published by RALL DIGITAL LLC</p>
-
 <h2>What Cortez Does</h2>
 <p>Cortez turns your iPhone or iPad into a Bluetooth keyboard and trackpad for a computer you can see. It uses your device's camera to read the computer's screen on the device itself, and sends keyboard and pointer input to the computer over Bluetooth, the same way a hardware keyboard does.</p>
-
 <h2>Data We Collect</h2>
-<p><strong>We do not collect personal data.</strong> Specifically:</p>
+<p>Cortez works without AI, and does not need an account. If you turn on the optional AI help feature, Cortez collects the information described in "AI help (optional)" below. Everything else:</p>
 <ul>
   <li><strong>No accounts.</strong> Cortez does not require sign-up, login, or any account creation.</li>
-  <li><strong>No analytics.</strong> The app contains no analytics or advertising SDK. We do not track usage, sessions, taps, or behavior.</li>
+  <li><strong>No analytics.</strong> The app contains no analytics or advertising SDK. We do not track your usage, sessions, taps, or behavior. The daily usage count described under "AI help (optional)" is used only to limit how much AI help one device can use in a day.</li>
   <li><strong>No advertising.</strong> There are no ads and no ad tracking.</li>
-  <li><strong>No data sold.</strong> We do not sell, share, or monetize any user data.</li>
-  <li><strong>Nothing leaves your device.</strong> This version of Cortez sends no camera frames, screen text, commands, passwords, or contact details to any server operated by us or by anyone else.</li>
+  <li><strong>No data sold.</strong> We do not sell or monetize user data, and we share it only as described under "AI help (optional)".</li>
+  <li>With AI help off, Cortez sends nothing to any server, with one exception: when you turn AI help off, Cortez sends our server a notice that you did (and sends it again later if it fails). Sending that notice can include re-verifying the app through Apple's App Attest service, using the device identifier described under "AI help (optional)".</li>
 </ul>
-
 <h2>Camera</h2>
-<p>Cortez uses your device's camera to view the computer screen you point it at. Camera frames are processed <strong>entirely on your device</strong> for text recognition and screen detection, and are discarded after processing. They are not stored and not transmitted.</p>
-
+<p>Cortez uses your device's camera to view the computer screen you point it at. Camera frames are processed entirely on your device for text recognition and screen detection, and are discarded after processing. They are not stored and not transmitted. If you turn on AI help, a text description of what the camera reads can be sent, as described under "AI help (optional)"; no photo or screenshot is sent.</p>
+<h2>AI help (optional)</h2>
+<p>Cortez works without AI. If you turn on AI help, Cortez can send information to an AI model. Sign-in help uses it when Cortez's built-in steps can't finish a job; form matching uses it each time it matches your document to a form. What is sent depends on the feature:</p>
+<ul>
+  <li><strong>Sign-in help:</strong> a text description of the computer screen your camera sees and the last few steps Cortez took. The screen text is everything readable on it, which can include names or messages from other apps. Cortez replaces email addresses, card numbers, Social Security numbers and phone numbers that it recognizes with placeholders before sending; other text, such as names and street addresses, is sent as it appears. No photo or screenshot is sent.</li>
+  <li><strong>Form matching:</strong> the names of the fields in your document (like "Date of birth"), what kind of value each holds, and the labels of the form you are filling. The values themselves are never sent.</li>
+  <li>Cortez replaces the username and password it is filling with placeholders before sending, and types them itself. A password shown in plain text that is not the one being filled is not replaced, so avoid filling a password while another one is shown on the screen.</li>
+  <li><strong>Where it goes:</strong> from Cortez's server to Google's Vertex AI service (the Gemini model), under Google Cloud terms that do not allow Google to use it for training. Cortez's server does not store it. Google may hold it in a cache for up to 24 hours to speed up replies. If Google's automated safety checks flag it as possible abuse, Google may keep it for up to 90 days to investigate.</li>
+  <li>Cortez's server keeps a record that this device agreed to this text and when (and, after you turn this off, when it was turned off, for one year), a device identifier used to verify this app, and a daily usage count that is deleted after 3 days.</li>
+  <li>You can turn AI help, or any one feature, off at any time in Settings &gt; Privacy &amp; Data. Privacy Policy: cortez.is/private</li>
+</ul>
 <h2>Bluetooth</h2>
 <p>Cortez connects to your computer over Bluetooth Low Energy as a standard HID (Human Interface Device) keyboard and pointer. The connection is direct between your iPhone or iPad and your computer; no data passes through our servers. Only keyboard and pointer input reports are transmitted.</p>
-
 <h2>Passwords, Face ID and Touch ID</h2>
-<p>Cortez does not store passwords. When you use Fill password, you choose the password yourself from iOS AutoFill, which is part of iOS and asks for Face ID, Touch ID or your passcode according to your device settings. Cortez receives only the username and password you choose, types them as keystrokes into the computer you are controlling, and never saves them or transmits them anywhere else. Separately, you can lock Cortez itself behind Face ID, Touch ID or your passcode.</p>
-
+<p>Cortez does not store passwords. When you use Fill password, you choose the password yourself from iOS AutoFill, which is part of iOS and asks for Face ID, Touch ID or your passcode according to your device settings. Cortez receives only the username and password you choose and types them as keystrokes into the computer you are controlling. It never saves them. If AI help is on, they are replaced with placeholders before anything is sent, as described under "AI help (optional)". Separately, you can lock Cortez itself behind Face ID, Touch ID or your passcode.</p>
 <h2>Face Data</h2>
 <p>Cortez does not collect, access, store, or share face data. When you unlock Cortez, iOS performs Face ID or Touch ID itself; Cortez receives only a yes/no result from Apple's LocalAuthentication framework and never sees, stores, or transmits your face geometry, images, or any biometric template. When iOS AutoFill asks for Face ID or Touch ID before giving you a password, that check happens entirely inside iOS. Cortez does not use face detection, face tracking, or the TrueDepth camera. Camera frames of your computer screen are processed on-device and discarded immediately.</p>
-
 <h2>Contacts</h2>
 <p>This version of Cortez does not read your contacts.</p>
-
 <h2>Microphone and Speech</h2>
 <p>This version of Cortez does not use the microphone or speech recognition.</p>
-
 <h2>Motion and Local Network</h2>
 <p>Cortez reads the device's motion sensor on the device only to tell when the device is being held still, so it can read the screen more accurately; motion data is not stored or transmitted. This version of Cortez does not access your local network.</p>
-
 <h2>On-Device Storage</h2>
 <p>Cortez stores the following locally on your iPhone or iPad, in the app's sandbox:</p>
 <ul>
@@ -72,22 +72,17 @@
   <li><strong>Action history</strong> (which actions ran and whether they succeeded)</li>
 </ul>
 <p>Cortez stores no passwords.</p>
-<p>This version does not sync any of this to iCloud. You can erase everything from Settings inside the app ("Erase all Cortez data"). "Erase all Cortez data" also clears anything Cortez has placed in the iOS Keychain (iOS can keep Keychain items after an app is deleted). Deleting the app removes the rest.</p>
-
+<p>This version does not sync any of this to iCloud. You can erase everything from Settings inside the app ("Erase all Cortez data"). "Erase all Cortez data" also clears anything Cortez has placed in the iOS Keychain (iOS can keep Keychain items after an app is deleted). Deleting the app removes the rest. Erasing data on your device does not delete the records our server keeps under "AI help (optional)". The consent record and device identifier expire one year after they were created, and the daily usage count after 3 days.</p>
 <h2>Third-Party Services</h2>
-<p>This version of Cortez uses no third-party services and makes no network requests on your behalf. If a future version adds cloud-assisted features, this policy will be updated before those features are enabled, and they will be off by default.</p>
-
+<p>If you turn on AI help, Cortez's server sends the information described in "AI help (optional)" to Google's Vertex AI service, as described there. Our server runs on Cloudflare, which carries each request and stores the records described under "AI help (optional)". Cortez uses Apple's App Attest service to confirm requests come from a genuine copy of the app. Cortez uses no other third-party service.</p>
 <h2>Children</h2>
-<p>Cortez is not directed at children. You must be 18 or older to use it. We do not knowingly collect information from anyone.</p>
-
+<p>Cortez is not directed at children. You must be 18 or older to use it. We do not knowingly collect information from anyone under 18.</p>
 <h2>Changes</h2>
 <p>We may update this policy. Changes will be posted at this URL with a new "last updated" date.</p>
-
 <h2>Contact</h2>
 <p>Questions about this policy: <a href="mailto:privacy@cortez.is">privacy@cortez.is</a><br>
 RALL DIGITAL LLC, publisher of Cortez.</p>
-
-<p class="updated">Last updated: September 30, 2026</p>
+<p class="updated">Last updated: October 28, 2026</p>
 
 </div>
 </body>
